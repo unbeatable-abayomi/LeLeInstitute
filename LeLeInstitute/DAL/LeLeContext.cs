@@ -14,6 +14,7 @@ namespace LeLeInstitute.DAL
                 
         //}
         public DbSet<Course> Courses { get; set; }
+        public DbSet<Department> Departments  { get; set; }
         public LeLeContext(DbContextOptions options) : base(options)
         {
 

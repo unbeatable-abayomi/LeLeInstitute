@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LeLeInstitute.DAL;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LeLeInstitute.Controllers
 {
@@ -23,8 +24,12 @@ namespace LeLeInstitute.Controllers
         
         public IActionResult Index()
         {//method syntax
-            var allCourse = _context.Courses.ToList();
-            return View(allCourse);
+            var allCourse = _context.Courses.Include(d => d.Department).ToList();
+
+            //query syntax
+
+            var querySyntax = from dept in _context.Departments join course in _context.Courses on dept.DepartmentId equals course.DepartmentId select course;
+            return View(querySyntax);
         }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LeLeInstitute.DAL;
+using LeLeInstitute.Services;
+using LeLeInstitute.Services.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,6 +30,7 @@ namespace LeLeInstitute
             services.AddDbContext<LeLeContext>(options =>
                  options.UseSqlServer(
                      Configuration.GetConnectionString("LeLeConnection")));
+            services.AddTransient<ICourseRepository, CourseRepository>();
             services.AddControllersWithViews();
 
         }

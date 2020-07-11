@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LeLeInstitute.DAL;
 using LeLeInstitute.Services;
+using LeLeInstitute.Services.IRepository;
 using LeLeInstitute.Services.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace LeLeInstitute
                  options.UseSqlServer(
                      Configuration.GetConnectionString("LeLeConnection")));
             services.AddTransient<ICourseRepository, CourseRepository>();
+            services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             services.AddControllersWithViews();
 
         }

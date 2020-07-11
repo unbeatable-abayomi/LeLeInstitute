@@ -50,21 +50,88 @@ namespace LeLeInstitute.Controllers
 
         public IActionResult Create()
         {
-            ViewBag.Departments = _departmentRepository.GetAll();
+            ViewBag.DepartmentId =new SelectList( _departmentRepository.GetAll(),"DepartmentId","DepartmentName");
             return View();
         }
 
         [HttpPost,ActionName("Create")]
-
+        [ValidateAntiForgeryToken]
         public IActionResult CreatePost(Course model)
         {
-            if(model == null)
+            if (ModelState.IsValid)
+            {
+                _courseRepository.Add(model);
+                RedirectToAction("Index");
+            }
+            //if(model == null)
+            //{
+            //    return NotFound();
+            //}
+
+           
+            return View("Create");
+        } 
+        [HttpGet]
+        public IActionResult Edit(int Id)
+        {
+            var course = _courseRepository.GetById(Id);
+            ViewBag.DepartmentId = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName");
+            if (course == null)
             {
                 return NotFound();
             }
+            return View(course);
+        }
 
-            _courseRepository.Add(model);
-            return View("Index");
+        [HttpPost,ActionName("Edit")]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Course model)
+        {
+            if (ModelState.IsValid)
+            {
+                _courseRepository.Update(model);
+                return RedirectToAction("Index");
+            }
+            
+
+            return View("Edit");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int Id)
+        {
+            var course = _courseRepository.GetById(Id);
+            if(course == null )
+            {
+                return NotFound();
+            }
+            return View(course);
+        }
+
+        [HttpPost , ActionName("Delete")]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult DeletePost (int courseId)
+        {
+            var course = _courseRepository.GetById(courseId);
+            if (course == null && courseId == 0)
+            {
+                return NotFound();
+            }
+         
+                _courseRepository.Delete(course);
+               return RedirectToAction("Index");
+                       
+        }
+
+        [HttpGet]
+        public IActionResult Details(int Id)
+        {
+            var course = _courseRepository.CoursesToDeparment().FirstOrDefault(x => x.CourseId == Id);
+                if (course == null)
+            {
+                return NotFound();
+            }
+            return View(course);
         }
     }
 }

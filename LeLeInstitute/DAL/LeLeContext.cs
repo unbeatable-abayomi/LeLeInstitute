@@ -15,6 +15,8 @@ namespace LeLeInstitute.DAL
         //}
         public DbSet<Course> Courses { get; set; }
         public DbSet<Department> Departments  { get; set; }
+        public DbSet<Student> Students  { get; set; }
+        public DbSet<Enrollment> Enrollments  { get; set; }
         public LeLeContext(DbContextOptions options) : base(options)
         {
 
@@ -24,6 +26,8 @@ namespace LeLeInstitute.DAL
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new CourseConfig());
             modelBuilder.ApplyConfiguration(new DepartemntConfig());
+            modelBuilder.ApplyConfiguration(new StudentConfig());
+            modelBuilder.ApplyConfiguration(new EnrollmentConfig());
         }
 
     }

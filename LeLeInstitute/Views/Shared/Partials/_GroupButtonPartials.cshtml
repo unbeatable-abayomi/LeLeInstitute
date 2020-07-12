@@ -1,0 +1,14 @@
+﻿@model int
+@{
+    Layout = null;
+}
+<td style="width: 150px">
+    <div class="btn-group">
+        <a type="button" class="btn btn-primary btn-sm" href="@Url.Action($"Edit", new {id = Model })">Edit</a>
+        <a type="button" class="btn btn-success btn-sm" href="@Url.Action($"Details", new {id = Model })">Details</a>
+        <a type="button" class="btn btn-danger btn-sm" href="@Url.Action($"Delete", new {id = Model })">Delete</a>
+    </div>
+</td>
+<!DOCTYPE html>
+
+

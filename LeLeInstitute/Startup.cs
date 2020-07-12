@@ -33,6 +33,7 @@ namespace LeLeInstitute
                      Configuration.GetConnectionString("LeLeConnection")));
             services.AddTransient<ICourseRepository, CourseRepository>();
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddControllersWithViews();
 
         }

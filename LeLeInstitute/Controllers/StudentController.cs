@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using LeLeInstitute.Models;
 using LeLeInstitute.Services.IRepository;
+using LeLeInstitute.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeLeInstitute.Controllers
@@ -22,29 +23,32 @@ namespace LeLeInstitute.Controllers
 
 
 
-        public IActionResult Lists()
-        {
-            return View(_studentRepository.GetAll());
-        }
-
-
-        public IActionResult Details(int Id)
-        {
-            return View(_studentRepository.GetAll());
-        }
-
         public IActionResult Index()
         {
-            ////method syntax
-            //var allCourse = _context.Courses.Include(d => d.Department).ToList();
-
-            ////query syntax
-
-            //var querySyntax = from dept in _context.Departments join course in _context.Courses on dept.DepartmentId equals course.DepartmentId select course;
-
-            //var allStudents = _studentRepository.CoursesToDeparment();
-            return View();
+            return View(_studentRepository.GetAll());
         }
+
+
+        public IActionResult Details(int id = 0)
+        {
+           if(id == 0)
+            {
+                return NotFound();
+            }
+
+            var student = _studentRepository.GetById(id);
+
+            var model = new StudentViewModel()
+            {
+                Student = student,
+                Enrollments = _studentRepository.CoursesToStudent(student.StudentId)
+
+            };
+            return View(model);
+          
+        }
+
+      
 
         [HttpGet]
 
@@ -60,7 +64,7 @@ namespace LeLeInstitute.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_studentRepository.Add(model);
+                _studentRepository.Add(model);
                 RedirectToAction("Index");
             }
             //if(model == null)

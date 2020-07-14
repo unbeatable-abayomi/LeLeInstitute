@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace LeLeInstitute.Services.IRepository
 {
-  public  interface IStudentRepository:IRepository<Student> 
+  public interface IStudentRepository : IRepository<Student> 
     {
+        IEnumerable<Enrollment> CoursesToStudent(int studentId);
     }
 }

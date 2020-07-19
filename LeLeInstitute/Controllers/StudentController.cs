@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LeLeInstitute.Models;
+using LeLeInstitute.Services;
 using LeLeInstitute.Services.IRepository;
 using LeLeInstitute.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ReflectionIT.Mvc.Paging;
 
 namespace LeLeInstitute.Controllers
@@ -13,11 +15,12 @@ namespace LeLeInstitute.Controllers
     public class StudentController : Controller
     {
         private readonly IStudentRepository _studentRepository;
-
-        public StudentController(IStudentRepository studentRepository)
+        private readonly IEnrollmentRepository _enrollmentRepository;
+        private readonly ICourseRepository _courseRepository;
+        public StudentController(IStudentRepository studentRepository, IEnrollmentRepository enrollmentRepository, ICourseRepository courseRepository)
         {
-
-
+            _courseRepository = courseRepository;
+            _enrollmentRepository = enrollmentRepository;
             _studentRepository = studentRepository;
            
         }
@@ -77,9 +80,10 @@ namespace LeLeInstitute.Controllers
 
                     return RedirectToAction("Index");
                 }
-            }
-
-        };
+                _enrollmentRepository.Add(model.Enrollment);
+            };
+            return RedirectToAction("Details", routeValues: new { id = model.Enrollment.StudentId });
+        }
 
         public IActionResult Details(int id = 0)
         {
@@ -87,7 +91,8 @@ namespace LeLeInstitute.Controllers
             {
                 return NotFound();
             }
-
+            //new SelectList(_courseRepository.GetAll(), "DepartmentId", "DepartmentName");
+            ViewBag.Courses =  _courseRepository.GetAll();
             var student = _studentRepository.GetById(id);
 
             var model = new StudentViewModel()

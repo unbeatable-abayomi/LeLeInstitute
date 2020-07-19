@@ -24,7 +24,8 @@
                 @Html.DisplayNameFor(model => model.Gender)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.EnrollmentDate)
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["sortByDate"]">  @Html.DisplayNameFor(model => model.EnrollmentDate)</a>
+              
             </th>
             <th></th>
         </tr>

@@ -33,15 +33,15 @@ namespace LeLeInstitute.Controllers
             //    ViewData["sortName"] = "";
             //}
             ViewData["sortName"] = string.IsNullOrEmpty(sortOrder)? "name_desc":" ";
-            ViewData["sortByDate"] = sortOrder == "Date" ? "date_desc":"Date ";
-            if(sortOrder == "Date")
-            {
-                ViewData["sortByDate"] = "date_desc";
-            }
-            else
-            {
-                ViewData["sortByDate"] = "date_desc";
-            }
+            ViewData["sortByDate"] = sortOrder == "Date" ? "date_desc":"Date";
+            //if(sortOrder == "Date")
+            //{
+            //    ViewData["sortByDate"] = "date_desc";
+            //}
+            //else
+            //{
+            //    ViewData["sortByDate"] = "Date";
+            //}
             var students = _studentRepository.GetAll();
            
 
@@ -49,6 +49,12 @@ namespace LeLeInstitute.Controllers
             {
                 case "name_desc":
                     students = students.OrderByDescending(s => s.FirstName);
+                    break;
+                case "Date":
+                    students = students.OrderBy(s => s.EnrollmentDate);
+                    break;
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.EnrollmentDate);
                     break;
                 default:
                     students = students.OrderBy(s => s.FirstName);

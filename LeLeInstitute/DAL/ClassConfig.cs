@@ -42,6 +42,7 @@ namespace LeLeInstitute.DAL
         public void Configure(EntityTypeBuilder<Student> builder)
         {
             builder.HasKey(s => s.StudentId);
+            builder.Property(s => s.StudentId).ValueGeneratedOnAdd();
             builder.Property(p => p.FirstName).HasColumnType("Nvarchar(50)");
             builder.Property(p => p.LastName).HasColumnType("Nvarchar(50)");
             builder.Property(p => p.EnrollmentDate).HasColumnType("Date").HasDefaultValueSql("GetDate()");

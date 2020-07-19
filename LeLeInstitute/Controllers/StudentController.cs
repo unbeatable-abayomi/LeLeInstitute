@@ -23,9 +23,38 @@ namespace LeLeInstitute.Controllers
 
 
 
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
-            return View(_studentRepository.GetAll());
+            //if (string.IsNullOrEmpty(sortOrder))
+            //{
+            //    ViewData["sortName"] = "name_desc";
+            //}else
+            //{
+            //    ViewData["sortName"] = "";
+            //}
+            ViewData["sortName"] = string.IsNullOrEmpty(sortOrder)? "name_desc":" ";
+            ViewData["sortByDate"] = sortOrder == "Date" ? "date_desc":"Date ";
+            if(sortOrder == "Date")
+            {
+                ViewData["sortByDate"] = "date_desc";
+            }
+            else
+            {
+                ViewData["sortByDate"] = "date_desc";
+            }
+            var students = _studentRepository.GetAll();
+           
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.FirstName);
+                    break;
+                default:
+                    students = students.OrderBy(s => s.FirstName);
+                    break;
+            }
+            return View(students);
         }
 
 
@@ -65,7 +94,7 @@ namespace LeLeInstitute.Controllers
             if (ModelState.IsValid)
             {
                 _studentRepository.Add(model);
-                RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             //if(model == null)
             //{

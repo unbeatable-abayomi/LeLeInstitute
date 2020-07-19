@@ -53,5 +53,5 @@ namespace LeLeInstitute.Services.Repository
             LeLeContext.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
             Save();
         }
-    }
+    } 
 }

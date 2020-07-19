@@ -44,9 +44,11 @@
                 @Html.DisplayFor(modelItem => item.EnrollmentDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
+                @*<a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>*@
+
+                <partial name="Partials/_GroupButtonPartials" model="@item.StudentId">
             </td>
         </tr>
 }

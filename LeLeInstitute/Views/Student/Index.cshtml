@@ -1,5 +1,7 @@
-﻿@model IEnumerable<LeLeInstitute.Models.Student>
-
+﻿@*@model IEnumerable<LeLeInstitute.Models.Student>*@
+@model PagingList<LeLeInstitute.Models.Student>
+@addTagHelper *, ReflectionIT.Mvc.Paging
+@using ReflectionIT.Mvc.Paging
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,10 +17,16 @@
 <br />
 <br />
 <form method="get" asp-action="Index">
-    search by name: <input type="search" name="searchString" value="@ViewData["currentFilter"]" placeholder="Search"/>
-    <input type="submit"  value="Search" class="btn btn-sm btn-success"/>
+    search by name: <input type="search" name="searchString" value="@ViewData["currentFilter"]" placeholder="Search" />
+    <input type="submit" value="Search" class="btn btn-sm btn-success" />
 </form>
 <br />
+@*<nav aria-label="Products navigation example">
+        <vc:pager paging-list="@Model"></vc:pager>
+    </nav>*@
+<nav aria-label="Products navigation example">
+    <vc:pager paging-list="@Model"></vc:pager>
+</nav>
 <br />
 <table class="table">
     <thead>
@@ -67,3 +75,9 @@
         }
     </tbody>
 </table>
+<nav aria-label="Products navigation example">
+    <vc:pager paging-list="@Model" />
+</nav>
+@*<nav aria-label="Products navigation example">
+        <vc:pager paging-list="@Model" />
+    </nav>*@   

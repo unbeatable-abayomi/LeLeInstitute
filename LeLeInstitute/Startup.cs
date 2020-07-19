@@ -39,9 +39,13 @@ namespace LeLeInstitute
             services.AddPaging(configureOptions: options =>
              {
                  options.ViewName = "Bootstrap4";
-                 options.PageParameterName = "pageIndex";
+                 options.PageParameterName = "pageindex";
 
              });
+            //services.AddPaging(options => {
+            //    options.ViewName = "Bootstrap4";
+            //    options.PageParameterName = "pageindex";
+            //});
 
         }
 

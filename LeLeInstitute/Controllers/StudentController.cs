@@ -6,6 +6,7 @@ using LeLeInstitute.Models;
 using LeLeInstitute.Services.IRepository;
 using LeLeInstitute.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using ReflectionIT.Mvc.Paging;
 
 namespace LeLeInstitute.Controllers
 {
@@ -23,7 +24,7 @@ namespace LeLeInstitute.Controllers
 
 
 
-        public IActionResult Index(string sortOrder, string searchString)
+        public IActionResult Index(string sortOrder, string searchString, int pageindex = 1)
         {
             //if (string.IsNullOrEmpty(sortOrder))
             //{
@@ -64,9 +65,21 @@ namespace LeLeInstitute.Controllers
                     students = students.OrderBy(s => s.FirstName);
                     break;
             }
-            return View(students);
+            var model = PagingList.Create(students, pageSize:2 ,pageIndex: pageindex);
+            return View(model);
         }
+        public IActionResult AddCourseToStudent(StudentViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if(model.Enrollment.StudentId == 0 || model.Enrollment.CourseId == 0)
+                {
 
+                    return RedirectToAction("Index");
+                }
+            }
+
+        };
 
         public IActionResult Details(int id = 0)
         {

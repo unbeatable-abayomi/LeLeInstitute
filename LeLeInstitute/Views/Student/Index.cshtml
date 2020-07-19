@@ -10,11 +10,21 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<br />
+<br />
+<br />
+<form method="get" asp-action="Index">
+    search by name: <input type="search" name="searchString" value="@ViewData["currentFilter"]" placeholder="Search"/>
+    <input type="submit"  value="Search" class="btn btn-sm btn-success"/>
+</form>
+<br />
+<br />
 <table class="table">
     <thead>
         <tr>
             <th>
-              
+
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["sortName"]"> @Html.DisplayNameFor(model => model.FirstName)</a>
             </th>
             <th>
@@ -25,34 +35,35 @@
             </th>
             <th>
                 <a asp-action="Index" asp-route-sortOrder="@ViewData["sortByDate"]">  @Html.DisplayNameFor(model => model.EnrollmentDate)</a>
-              
+
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Gender)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDate)
-            </td>
-            <td>
-                @*<a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>*@
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                </td>
+                <td>
+                    @*<a asp-action="Edit" asp-route-id="@item.StudentId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.StudentId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.StudentId">Delete</a>*@
 
-                <partial name="Partials/_GroupButtonPartials" model="@item.StudentId">
-            </td>
-        </tr>
-}
+                    <partial name="Partials/_GroupButtonPartials" model="@item.StudentId">
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

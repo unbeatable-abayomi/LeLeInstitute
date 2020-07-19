@@ -23,7 +23,7 @@ namespace LeLeInstitute.Controllers
 
 
 
-        public IActionResult Index(string sortOrder)
+        public IActionResult Index(string sortOrder, string searchString)
         {
             //if (string.IsNullOrEmpty(sortOrder))
             //{
@@ -34,6 +34,7 @@ namespace LeLeInstitute.Controllers
             //}
             ViewData["sortName"] = string.IsNullOrEmpty(sortOrder)? "name_desc":" ";
             ViewData["sortByDate"] = sortOrder == "Date" ? "date_desc":"Date";
+            ViewData["currentFilter"] = searchString;
             //if(sortOrder == "Date")
             //{
             //    ViewData["sortByDate"] = "date_desc";
@@ -43,8 +44,11 @@ namespace LeLeInstitute.Controllers
             //    ViewData["sortByDate"] = "Date";
             //}
             var students = _studentRepository.GetAll();
-           
 
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.FirstName.ToLower().Contains(searchString.ToLower())||s.LastName.ToLower().Contains(searchString.ToLower()) );
+            }
             switch (sortOrder)
             {
                 case "name_desc":

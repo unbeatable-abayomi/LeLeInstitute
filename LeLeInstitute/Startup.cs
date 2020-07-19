@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ReflectionIT.Mvc.Paging;
 
 namespace LeLeInstitute
 {
@@ -35,6 +36,12 @@ namespace LeLeInstitute
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddControllersWithViews();
+            services.AddPaging(configureOptions: options =>
+             {
+                 options.ViewName = "Bootstrap4";
+                 options.PageParameterName = "pageIndex";
+
+             });
 
         }
 

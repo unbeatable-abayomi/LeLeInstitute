@@ -19,9 +19,9 @@
     <div id="ModalLoginForm" class="modal fade">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
+                @*<div class="modal-header">
                     <h1 class="modal-title">Login</h1>
-                </div>
+                </div*@>
                 <div class="modal-body">
                     <form role="form" method="POST" asp-action="AddCourseToStudent">
                         <input type="hidden" asp-for="Enrollment.StudentId" value="@Model.Student.StudentId">
@@ -35,22 +35,7 @@
                                 <select asp-for="Enrollment.Grade" asp-items="Html.GetEnumSelectList<Grade>()"></select>
                             </div>
                         </div>
-                        @*<div class="form-group">
-                                <label class="control-label">Password</label>
-                                <div>
-                                    <input type="password" class="form-control input-lg" name="password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="remember"> Remember Me
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>*@
-                        <div class="form-group">
+                     <div class="form-group">
                             <div>
                                 <button type="submit" class="btn btn-success">Save</button>
 
@@ -107,16 +92,20 @@
                         Title
                     </th>
                     <th>Grade</th>
+                    <th>Credits</th>
 
                 </tr>
             </thead>
             <tbody>
                 @foreach (var course in Model.Enrollments)
                 {
-                    <tr>
-                        <td>@course.Course.CourseName</td>
-                        <td>@course.Grade</td>
-                    </tr>
+                <tr>
+                    <td>@course.Course.CourseName</td>
+                    <td>@course.Grade</td>
+                    <td>@course.Course.Credits</td>
+                    @*<td>@course.Student.FirstName</td>
+        <td>@course.Student.LastName</td>*@
+                </tr>
                 }
             </tbody>
         </table>

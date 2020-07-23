@@ -17,7 +17,7 @@ namespace LeLeInstitute.Services.Repository
 
         IEnumerable<Course> ICourseRepository.CoursesToDeparment()
         {
-            return LeLeContext.Courses.Include(x => x.Department).ToList(); 
+            return LeLeContext.Courses.Include(navigationPropertyPath: x => x.Department).ToList(); 
         }
     }
 }

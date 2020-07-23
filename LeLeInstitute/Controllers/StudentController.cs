@@ -71,6 +71,25 @@ namespace LeLeInstitute.Controllers
             var model = PagingList.Create(students, pageSize:2 ,pageIndex: pageindex);
             return View(model);
         }
+        public IActionResult Details(int id = 0)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            //new SelectList(_courseRepository.GetAll(), "DepartmentId", "DepartmentName");
+            ViewBag.Courses = _courseRepository.GetAll();
+            var student = _studentRepository.GetById(id);
+
+            var model = new StudentViewModel()
+            {
+                Student = student,
+                Enrollments = _studentRepository.CoursesToStudent(student.StudentId)
+
+            };
+            return View(model);
+
+        }
         public IActionResult AddCourseToStudent(StudentViewModel model)
         {
             if (ModelState.IsValid)
@@ -85,25 +104,7 @@ namespace LeLeInstitute.Controllers
             return RedirectToAction("Details", routeValues: new { id = model.Enrollment.StudentId });
         }
 
-        public IActionResult Details(int id = 0)
-        {
-           if(id == 0)
-            {
-                return NotFound();
-            }
-            //new SelectList(_courseRepository.GetAll(), "DepartmentId", "DepartmentName");
-            ViewBag.Courses =  _courseRepository.GetAll();
-            var student = _studentRepository.GetById(id);
-
-            var model = new StudentViewModel()
-            {
-                Student = student,
-                Enrollments = _studentRepository.CoursesToStudent(student.StudentId)
-
-            };
-            return View(model);
-          
-        }
+       
 
       
 

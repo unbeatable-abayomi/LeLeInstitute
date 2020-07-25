@@ -11,6 +11,9 @@ namespace LeLeInstitute.Models
         public string DepartmentName { get; set; }
         public decimal Budget { get; set; }
 
+        public int? InstructorId { get; set; }
+        public Instructor Instructor { get; set; }
+
         public ICollection<Course> Courses { get; set; }
     }
 }

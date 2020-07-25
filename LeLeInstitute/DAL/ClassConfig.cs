@@ -90,7 +90,7 @@ namespace LeLeInstitute.DAL
             builder.Property(p => p.FirstName).HasMaxLength(25);
             builder.Property(p => p.LastName).HasMaxLength(25);
             builder.Property(p => p.HireDate).HasColumnType("Date").HasDefaultValueSql("GetDate()");
-
+            builder.Ignore(p => p.FullName);
 
             builder.HasOne(navigationExpression: o => o.OfficeAssignment)
               .WithOne(navigationExpression: i => i.Instructor)

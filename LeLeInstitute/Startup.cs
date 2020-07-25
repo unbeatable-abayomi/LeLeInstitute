@@ -36,6 +36,7 @@ namespace LeLeInstitute
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             services.AddTransient<IStudentRepository, StudentRepository>();
             services.AddTransient<IEnrollmentRepository, EnrollmentRepository>();
+            services.AddTransient<IInstructorRepository, InstructorRepository>();
             services.AddControllersWithViews();
             services.AddPaging(configureOptions: options =>
              {

@@ -6,10 +6,7 @@ using System.Threading.Tasks;
 
 namespace LeLeInstitute.Services.IRepository
 {
-   public interface IDepartmentRepository : IRepository<Department>
+   public interface IInstructorRepository : IRepository<Instructor>
     {
-        IEnumerable<Department> InStructorToDeparments();
-
-        Department InstructorToDeparment(int id);
     }
 }

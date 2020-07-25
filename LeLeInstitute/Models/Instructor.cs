@@ -17,7 +17,7 @@ namespace LeLeInstitute.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-       
+        public string FullName => $" {LastName} {FirstName}";
         [Display(Name = "Enrollment Date")]
         [DisplayFormat(DataFormatString = "{0:dd,MM,yyyy}", ApplyFormatInEditMode = true)]
         public DateTime HireDate { get; set; }

@@ -11,7 +11,7 @@ namespace LeLeInstitute.Models
         public int InstructorId { get; set; }
 
         [Required]
-        [Display(Name = "Last Name")]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
         [Required]
         [Display(Name = "Last Name")]

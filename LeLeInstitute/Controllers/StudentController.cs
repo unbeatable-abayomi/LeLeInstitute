@@ -136,13 +136,13 @@ namespace LeLeInstitute.Controllers
         [HttpGet]
         public IActionResult Edit(int Id)
         {
-            var course = _studentRepository.GetById(Id);
+            var student = _studentRepository.GetById(Id);
             //ViewBag.DepartmentId = new SelectList(_departmentRepository.GetAll(), "DepartmentId", "DepartmentName");
-            if (course == null)
+            if (student == null)
             {
                 return NotFound();
             }
-            return View(course);
+            return View(student);
         }
 
         [HttpPost, ActionName("Edit")]
